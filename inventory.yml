@@ -1,0 +1,5 @@
+all:
+  hosts:
+    sre-log-rotate:
+      ansible_host: 16.52.32.151
+      ansible_user: ubuntu

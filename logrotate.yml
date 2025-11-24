@@ -1,0 +1,27 @@
+# Configure log rotation for custom-monitor
+# 1. Ensure logging directory exists
+# 2. Make sure logrotate is installed
+# 3. Create logrotate config for custom-monitor
+---
+- name: Set up log rotation for custom-monitor
+  hosts: sre-log-rotate
+  become: yes
+  tasks:
+  - name: Ensure log directory structure
+    ansible.builtin.file:
+      path: /var/log/custom-monitor
+      state: directory
+      mode: "0755"
+      owner: root
+      group: root
+  - name: Ensure logrotate is installed on new machines
+    ansible.builtin.apt:
+      name: logrotate
+      state: present
+  - name: Deploy logrotate configuration for custom-monitor
+    ansible.builtin.copy:
+      src: files/custom-monitor
+      dest: /etc/logrotate.d/custom-monitor
+      mode: "0644"
+      owner: root
+      group: root

@@ -1,0 +1,13 @@
+# man logrotate - gives more info on parameters
+# Can test on server using: sudo logrotate --debug /etc/logrotate.d/custom-monitor
+/var/log/custom-monitor/*.log
+{
+	rotate 7 	# keep 7 cycles of logs
+	daily		# rotate daily
+	notifempty	# skip rotation if logs are empty
+	compress	# compress rotated logs
+	sharedscripts 	# if wildcard picks up multiple files, restart only once
+	postrotate
+		systemctl restart custom-monitor.service
+	endscript
+}
