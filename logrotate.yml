@@ -7,6 +7,10 @@
   hosts: sre-log-rotate
   become: yes
   tasks:
+
+  # Check if /var/log/custom-monitor exists
+  # Create if it doesn't exist
+  # Ensure the directory has the correct permissions
   - name: Ensure log directory structure
     ansible.builtin.file:
       path: /var/log/custom-monitor
@@ -14,10 +18,15 @@
       mode: "0755"
       owner: root
       group: root
+
+  # Ensure logrotate Ubuntu package is installed
   - name: Ensure logrotate is installed on new machines
     ansible.builtin.apt:
       name: logrotate
       state: present
+
+  # Ensure there is a copy of logrotate configuration file
+  # for custom-monitor and that is has the right permissions
   - name: Deploy logrotate configuration for custom-monitor
     ansible.builtin.copy:
       src: files/custom-monitor
