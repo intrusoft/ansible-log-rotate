@@ -5,7 +5,8 @@ infrastructure. Maintained by team ABC.
 
 ## Playbooks
 
-### logrotate.yml: Configures log rotation for 'custom-monitor'
+### logrotate.yml
+- Configures log rotation for 'custom-monitor'
 
 ## Requirements
 - Ansible version x.x.x
